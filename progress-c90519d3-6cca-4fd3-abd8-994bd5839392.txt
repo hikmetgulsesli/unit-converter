@@ -1,0 +1,95 @@
+# Progress Log
+Run: c90519d3-6cca-4fd3-abd8-994bd5839392
+Task: Build a Unit Converter web application with Length, Weight, Temperature, Currency conversion
+Started: 2026-02-17
+
+## Codebase Patterns
+- Stack: React + Vite + TypeScript
+- Design System: DevTool palette (cyan primary #22d3ee, dark zinc surfaces)
+- Font Pair: Space Grotesk (headings) + DM Sans (body)
+- Icons: Lucide React
+- CSS Variables: All design tokens in src/styles/tokens.css
+- Port: 3514 (configured in vite.config.ts)
+- Testing: Vitest (configured with `npm test`)
+
+---
+
+## 2026-02-17 01:30 - US-001: Initialize Vite React project with TypeScript and design tokens
+- Created Vite React + TypeScript project structure
+- Installed lucide-react for icons
+- Created design tokens at src/styles/tokens.css with DevTool palette:
+  - Primary: cyan (#22d3ee), Accent: lime (#a3e635)
+  - Dark surfaces: zinc-based (#18181b, #27272a)
+  - Full spacing, typography, radius, shadow tokens
+- Added Google Fonts link for Space Grotesk + DM Sans in index.html
+- Updated .gitignore with .env, node_modules/, dist/, .vite/
+- Created .env.example with PORT=3514
+- Set up folder structure: src/components, src/hooks, src/utils, src/types, src/styles
+- Configured vite.config.ts with port 3514
+- Created tsconfig.json and tsconfig.node.json for TypeScript
+- Converted JSX files to TypeScript (.tsx)
+- Created type definitions in src/types/index.ts
+- Updated global styles in src/index.css using design tokens
+- Typecheck passes, build succeeds
+
+**Learnings:**
+- Vite dev server needs strictPort: true to enforce the configured port
+- Always include prefers-reduced-motion media query for accessibility
+- Use CSS custom properties for theming (light/dark modes)
+
+## 2026-02-17 01:42 - US-004: Implement weight conversion utility functions
+- Created src/utils/weight.ts with:
+  - WeightUnit type for all 5 weight units (kg, g, mg, lb, oz)
+  - WEIGHT_TO_GRAMS conversion factors object with exact values:
+    - kg: 1000, g: 1, mg: 0.001, lb: 453.59237, oz: 28.34952
+  - convertWeight(value, from, to) function with proper error handling
+  - Helper functions: toGrams(), fromGrams(), convertWeightRounded()
+  - WeightConversionError class for typed errors
+  - Unit validation with isValidWeightUnit()
+  - Unit metadata: WEIGHT_UNITS, WEIGHT_UNIT_NAMES, WEIGHT_UNIT_SYMBOLS
+- Created comprehensive test suite in src/utils/weight.test.ts:
+  - 23 tests covering all conversion scenarios
+  - Basic conversions: kg to g, g to mg, lb to kg, oz to g
+  - Reverse conversions: g to kg, mg to g, kg to lb, g to oz
+  - Edge cases: zero, negative values, very large numbers, very small numbers
+  - Error handling: NaN, Infinity, invalid units
+  - Helper function tests for toGrams, fromGrams, convertWeightRounded
+  - Conversion factor accuracy verification
+- All 76 tests pass (23 weight + 23 length + 30 types)
+- Typecheck passes
+- Build succeeds
+
+**Learnings:**
+- Following the same pattern as length.ts ensures consistency across utilities
+- Exact conversion factors from requirements ensure accuracy
+- Base unit approach (grams) simplifies conversion logic
+
+---
+
+## 2026-02-17 01:38 - US-003: Implement length conversion utility functions
+- Created src/utils/length.ts with:
+  - LengthUnit type for all 8 length units (km, m, cm, mm, mile, yard, feet, inch)
+  - LENGTH_TO_METERS conversion factors object
+  - convertLength(value, from, to) function with proper error handling
+  - Helper functions: toMeters(), fromMeters(), convertLengthRounded()
+  - LengthConversionError class for typed errors
+  - Unit validation with isValidLengthUnit()
+  - Unit metadata: LENGTH_UNITS, LENGTH_UNIT_NAMES, LENGTH_UNIT_SYMBOLS
+- Created comprehensive test suite in src/utils/length.test.ts:
+  - 23 tests covering all conversion scenarios
+  - Basic conversions: km to m, m to cm, mile to km, inch to cm
+  - Reverse conversions: m to km, cm to m, km to mile, cm to inch
+  - Edge cases: zero, negative values, very large numbers, very small numbers
+  - Error handling: NaN, Infinity, invalid units
+  - Helper function tests for toMeters, fromMeters, convertLengthRounded
+  - Conversion factor accuracy verification
+- All 53 tests pass (23 length + 30 types)
+- Typecheck passes
+- Build succeeds
+
+**Learnings:**
+- Use toBeCloseTo for floating point comparisons in tests (not toBe)
+- Node ESM requires .js extensions for imports, but Vitest handles TypeScript directly
+- Custom error classes provide better error handling with typed error codes
+
+---
