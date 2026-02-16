@@ -66,6 +66,41 @@ Started: 2026-02-17
 
 ---
 
+## 2026-02-17 01:48 - US-005: Implement temperature conversion utility functions
+- Created src/utils/temperature.ts with:
+  - TempUnit type for all 3 temperature units (C, F, K)
+  - Individual conversion functions for all 6 conversion paths:
+    - celsiusToFahrenheit, celsiusToKelvin
+    - fahrenheitToCelsius, fahrenheitToKelvin
+    - kelvinToCelsius, kelvinToFahrenheit
+  - convertTemperature(value, from, to) main function with proper error handling
+  - Helper functions: toCelsius(), fromCelsius(), convertTemperatureRounded()
+  - TemperatureConversionError class for typed errors
+  - Unit validation with isValidTempUnit()
+  - Absolute zero handling with isBelowAbsoluteZero() check
+  - Unit metadata: TEMP_UNITS, TEMP_UNIT_NAMES, TEMP_UNIT_SYMBOLS, ABSOLUTE_ZERO
+- Created comprehensive test suite in src/utils/temperature.test.ts:
+  - 51 tests covering all conversion scenarios
+  - Celsius ↔ Fahrenheit: freezing/boiling points, body temp, room temp, -40° intersection
+  - Celsius ↔ Kelvin: absolute zero, positive/negative conversions
+  - Fahrenheit ↔ Kelvin: absolute zero, standard conversions
+  - Same unit conversions (identity)
+  - Absolute zero edge cases: negative Kelvin throws error, 0K allowed
+  - Edge cases: zero, negative values, very large numbers, decimals
+  - Error handling: NaN, Infinity, invalid units
+  - Helper function tests for toCelsius, fromCelsius, convertTemperatureRounded
+- All 127 tests pass (51 temperature + 23 weight + 23 length + 30 types)
+- Typecheck passes
+- Build succeeds
+
+**Learnings:**
+- Temperature conversions require formula-based approach, not linear factors
+- Absolute zero (0K) is a critical edge case that must be handled
+- Floating point precision requires toBeCloseTo for exact decimal comparisons
+- Following the same utility pattern (error class, validation, helper functions) ensures consistency
+
+---
+
 ## 2026-02-17 01:38 - US-003: Implement length conversion utility functions
 - Created src/utils/length.ts with:
   - LengthUnit type for all 8 length units (km, m, cm, mm, mile, yard, feet, inch)
