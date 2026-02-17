@@ -5,6 +5,7 @@
   background-color: var(--surface-alt);
   border-radius: var(--radius-xl);
   width: fit-content;
+  position: relative;
 }
 
 .category-tab {
@@ -22,8 +23,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: 
-    background-color var(--transition-fast),
-    color var(--transition-fast);
+    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
 }
 

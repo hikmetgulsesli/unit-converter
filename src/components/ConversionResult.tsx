@@ -1,4 +1,5 @@
 import { Loader2 } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { Unit } from '../types';
 import './ConversionResult.css';
 
@@ -42,6 +43,35 @@ export function ConversionResult({
   error = null,
   label = 'Result',
 }: ConversionResultProps) {
+  // Track previous value for fade transition
+  const [displayValue, setDisplayValue] = useState<string>('—');
+  const [isUpdating, setIsUpdating] = useState(false);
+  const prevValueRef = useRef<number | null | undefined>(null);
+  const isMountedRef = useRef(false);
+
+  // Update display with fade transition when value changes
+  useEffect(() => {
+    const hasValue = value !== null && value !== undefined && !isNaN(value);
+    const newDisplayValue = hasValue ? formatNumber(value) : '—';
+    
+    // Only animate if value actually changed (not on initial mount)
+    if (isMountedRef.current && prevValueRef.current !== value && hasValue) {
+      setIsUpdating(true);
+      
+      // Small delay to allow fade-out, then update value and fade-in
+      const timer = setTimeout(() => {
+        setDisplayValue(newDisplayValue);
+        setIsUpdating(false);
+      }, 75);
+      
+      prevValueRef.current = value;
+      return () => clearTimeout(timer);
+    } else {
+      setDisplayValue(newDisplayValue);
+      prevValueRef.current = value;
+      isMountedRef.current = true;
+    }
+  }, [value]);
   // Error state takes precedence
   if (error) {
     return (
@@ -77,7 +107,6 @@ export function ConversionResult({
 
   // Determine display value
   const hasValue = value !== null && value !== undefined && !isNaN(value);
-  const displayValue = hasValue ? formatNumber(value) : '—';
   const displayUnit = hasValue ? unit.symbol : '';
 
   return (
@@ -85,7 +114,7 @@ export function ConversionResult({
       {label && (
         <span className="conversion-result__label">{label}</span>
       )}
-      <div className="conversion-result__value-container">
+      <div className={`conversion-result__value-container ${isUpdating ? 'conversion-result__value-container--updating' : ''}`}>
         <span 
           className={`conversion-result__value ${!hasValue ? 'conversion-result__value--placeholder' : ''}`}
           data-testid="result-value"

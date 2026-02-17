@@ -21,6 +21,14 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   min-height: 48px;
+  
+  /* Subtle fade transition for value updates - only transform and opacity */
+  transition: opacity 150ms ease-out;
+  will-change: opacity;
+}
+
+.conversion-result__value-container--updating {
+  opacity: 0.5;
 }
 
 .conversion-result__value {
@@ -98,5 +106,10 @@
 @media (prefers-reduced-motion: reduce) {
   .conversion-result__spinner {
     animation: none;
+  }
+  
+  .conversion-result__value-container {
+    transition: none;
+    will-change: auto;
   }
 }
