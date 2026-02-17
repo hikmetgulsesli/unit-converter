@@ -1,0 +1,14 @@
+# Progress Log
+Run: b76f308c-c0ee-4abd-8f4c-f7f5e98bb33c
+Task: Build a Unit Converter web application with Length, Weight, Temperature, Currency conversion. Modern dark UI with real-time conversion. Stack: React + Vite.
+Started: 2026-02-17T03:00:00+03:00
+
+## Codebase Patterns
+- Uses DevTool dark palette (Cyan #22d3ee primary, Zinc surfaces)
+- Font pair: Space Grotesk (headings), DM Sans (body)
+- Uses Lucide React for icons
+- Components use CSS custom properties for theming
+- Tests use Vitest + @testing-library/react
+- TypeScript strict mode
+
+---
