@@ -1,28 +1,38 @@
-import { useState } from 'react'
-import './App.css'
+import { ArrowRightLeft } from 'lucide-react';
+import { ConverterCard } from './components';
+import './App.css';
 
+/**
+ * Main App component with header, centered ConverterCard, and footer
+ */
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className="container">
-        <h1>Unit Converter</h1>
-        <p className="subtitle">Modern conversion tool</p>
-        <div className="card">
-          <button 
-            onClick={() => setCount((count) => count + 1)}
-            className="btn-primary"
-          >
-            Count is {count}
-          </button>
-          <p className="hint">
-            Project initialized successfully!
-          </p>
+    <div className="app">
+      {/* Header */}
+      <header className="app__header">
+        <div className="app__header-content">
+          <div className="app__logo">
+            <ArrowRightLeft className="app__logo-icon" aria-hidden="true" />
+            <h1 className="app__title">Unit Converter</h1>
+          </div>
         </div>
-      </div>
-    </>
-  )
+      </header>
+
+      {/* Main Content */}
+      <main className="app__main">
+        <div className="app__container">
+          <ConverterCard />
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="app__footer">
+        <p className="app__footer-text">
+          Unit Converter v1.0 — Built with React + Vite
+        </p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
