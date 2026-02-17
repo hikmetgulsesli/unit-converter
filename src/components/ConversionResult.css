@@ -1,0 +1,115 @@
+.conversion-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.conversion-result__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.conversion-result__value-container {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  min-height: 48px;
+  
+  /* Subtle fade transition for value updates - only transform and opacity */
+  transition: opacity 150ms ease-out;
+  will-change: opacity;
+}
+
+.conversion-result__value-container--updating {
+  opacity: 0.5;
+}
+
+.conversion-result__value {
+  font-family: var(--font-body);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.conversion-result__value--placeholder {
+  color: var(--text-subtle);
+}
+
+.conversion-result__unit {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Loading state */
+.conversion-result__loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  min-height: 48px;
+}
+
+.conversion-result__spinner {
+  color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.conversion-result__loading-text {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Error state */
+.conversion-result__error {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  background-color: rgba(248, 113, 113, 0.1);
+  border: 1px solid var(--error);
+  border-radius: var(--radius-lg);
+  min-height: 48px;
+}
+
+.conversion-result__error-text {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--error);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .conversion-result__spinner {
+    animation: none;
+  }
+  
+  .conversion-result__value-container {
+    transition: none;
+    will-change: auto;
+  }
+}

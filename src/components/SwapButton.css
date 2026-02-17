@@ -1,0 +1,61 @@
+.swap-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-alt);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.swap-button:hover:not(:disabled) {
+  border-color: var(--primary);
+  background-color: var(--surface-elevated);
+  color: var(--primary);
+}
+
+.swap-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.swap-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.swap-button--disabled,
+.swap-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: var(--surface-alt);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+.swap-button__icon {
+  transition: transform 200ms ease-out;
+}
+
+.swap-button--animating .swap-button__icon {
+  transform: rotate(180deg);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .swap-button__icon {
+    transition: none;
+  }
+  
+  .swap-button--animating .swap-button__icon {
+    transform: none;
+  }
+}
