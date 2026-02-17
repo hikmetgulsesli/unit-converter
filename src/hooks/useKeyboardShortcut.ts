@@ -80,27 +80,3 @@ export function useKeyboardShortcut({
     };
   }, [handleKeyDown, enabled]);
 }
-
-/**
- * Hook specifically for focusing an element with Ctrl/Cmd+K
- * 
- * @example
- * const inputRef = useFocusShortcut<HTMLInputElement>();
- * // Then: <input ref={inputRef} />
- */
-export function useFocusShortcut<T extends HTMLElement>(): React.RefObject<T | null> {
-  const elementRef = { current: null as T | null };
-
-  useKeyboardShortcut({
-    key: 'ctrl+k',
-    callback: () => {
-      elementRef.current?.focus();
-      // Select all text in the input for easy replacement
-      if (elementRef.current instanceof HTMLInputElement) {
-        elementRef.current.select();
-      }
-    },
-  });
-
-  return elementRef;
-}

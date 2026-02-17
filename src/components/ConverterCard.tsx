@@ -63,6 +63,10 @@ export function ConverterCard({
   }, [inputValue, fromUnit, toUnit, activeCategory, convert]);
 
   // Get unit objects for display
+  const fromUnitObj = useMemo(() => {
+    return availableUnits.find((u) => u.id === fromUnit);
+  }, [availableUnits, fromUnit]);
+
   const toUnitObj = useMemo(() => {
     return availableUnits.find((u) => u.id === toUnit);
   }, [availableUnits, toUnit]);
@@ -188,8 +192,8 @@ export function ConverterCard({
         aria-atomic="true"
         data-testid="conversion-announcement"
       >
-        {result !== null && !isNaN(result) && toUnitObj && (
-          `${inputValue} ${fromUnit} equals ${result.toLocaleString('en-US', { maximumFractionDigits: 6 })} ${toUnitObj.symbol}`
+        {result !== null && !isNaN(result) && fromUnitObj && toUnitObj && (
+          `${inputValue} ${fromUnitObj.symbol} equals ${result.toLocaleString('en-US', { maximumFractionDigits: 6 })} ${toUnitObj.symbol}`
         )}
       </div>
     </div>
