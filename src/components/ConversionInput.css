@@ -1,0 +1,83 @@
+.conversion-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.conversion-input__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.conversion-input__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.conversion-input__field {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.conversion-input__field::placeholder {
+  color: var(--text-subtle);
+}
+
+.conversion-input__field:hover:not(:disabled) {
+  background-color: var(--surface-elevated);
+  border-color: var(--border-subtle);
+}
+
+.conversion-input__field:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.2);
+}
+
+.conversion-input__field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Remove number input spinners */
+.conversion-input__field::-webkit-outer-spin-button,
+.conversion-input__field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.conversion-input__field[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Invalid state */
+.conversion-input__field[aria-invalid='true'] {
+  border-color: var(--error);
+}
+
+.conversion-input__field[aria-invalid='true']:focus-visible {
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .conversion-input__field {
+    transition-duration: 0.01ms;
+  }
+}

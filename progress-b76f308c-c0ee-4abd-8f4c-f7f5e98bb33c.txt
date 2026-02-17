@@ -12,3 +12,10 @@ Started: 2026-02-17T03:00:00+03:00
 - TypeScript strict mode
 
 ---
+
+## 2026-02-17T03:05:00+03:00 - US-002: Create UnitSelector dropdown component
+- Created src/components/UnitSelector.tsx with all required props
+- Created src/components/UnitSelector.css with dark theme styling
+- Created 10 tests in UnitSelector.test.tsx
+- All tests pass, typecheck passes, build succeeds
+- **Learnings:** Native select with custom arrow requires wrapper div for positioning. Disabled select prevents user interaction but fireEvent in tests bypasses browser behavior, so we verify disabled attribute instead.
