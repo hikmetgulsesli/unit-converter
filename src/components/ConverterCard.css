@@ -9,6 +9,19 @@
   margin: 0 auto;
 }
 
+.converter-card__shortcut-hint {
+  /* Container for screen reader only content */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .converter-card__header {
   display: flex;
   justify-content: center;

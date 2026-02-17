@@ -4,7 +4,7 @@ import { ConversionInput } from './ConversionInput';
 import { UnitSelector } from './UnitSelector';
 import { SwapButton } from './SwapButton';
 import { ConversionResult } from './ConversionResult';
-import { useConverter } from '../hooks/useConverter';
+import { useConverter, useFocusShortcut } from '../hooks';
 import { UnitCategory, getUnitsByCategory } from '../types';
 import './ConverterCard.css';
 
@@ -24,6 +24,9 @@ export function ConverterCard({
   onConversionChange,
 }: ConverterCardProps) {
   const { convert, getCategories } = useConverter();
+  
+  // Ref for the input field to support Ctrl/Cmd+K keyboard shortcut
+  const inputRef = useFocusShortcut<HTMLInputElement>();
   
   // State
   const [activeCategory, setActiveCategory] = useState<UnitCategory>(initialCategory);
@@ -113,7 +116,19 @@ export function ConverterCard({
   }, [fromUnit, toUnit, availableUnits.length]);
 
   return (
-    <div className="converter-card" data-testid="converter-card">
+    <div 
+      className="converter-card" 
+      data-testid="converter-card"
+      role="region"
+      aria-label="Unit converter"
+    >
+      {/* Keyboard shortcut hint - visually hidden but available to screen readers */}
+      <div className="converter-card__shortcut-hint">
+        <span className="sr-only">
+          Press Ctrl+K or Command+K to focus the input field
+        </span>
+      </div>
+
       {/* Category Tabs */}
       <div className="converter-card__header">
         <CategoryTab
@@ -126,6 +141,7 @@ export function ConverterCard({
       {/* Input Section */}
       <div className="converter-card__section converter-card__input-section">
         <ConversionInput
+          ref={inputRef}
           id="from-value"
           label="From"
           value={inputValue}
@@ -137,7 +153,7 @@ export function ConverterCard({
           units={availableUnits}
           value={fromUnit}
           onChange={handleFromUnitChange}
-          label="Unit"
+          label="From unit"
         />
       </div>
 
@@ -161,8 +177,20 @@ export function ConverterCard({
           units={availableUnits}
           value={toUnit}
           onChange={handleToUnitChange}
-          label="Unit"
+          label="To unit"
         />
+      </div>
+
+      {/* ARIA live region for announcing conversion results to screen readers */}
+      <div 
+        className="sr-only" 
+        aria-live="polite" 
+        aria-atomic="true"
+        data-testid="conversion-announcement"
+      >
+        {result !== null && !isNaN(result) && toUnitObj && (
+          `${inputValue} ${fromUnit} equals ${result.toLocaleString('en-US', { maximumFractionDigits: 6 })} ${toUnitObj.symbol}`
+        )}
       </div>
     </div>
   );
