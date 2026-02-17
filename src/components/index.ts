@@ -1,6 +1,9 @@
 export { CategoryTab } from './CategoryTab';
 export type { CategoryTabProps } from './CategoryTab';
 
+export { ConversionHistory } from './ConversionHistory';
+export type { ConversionHistoryProps, ConversionHistoryItem } from './ConversionHistory';
+
 export { ConversionInput } from './ConversionInput';
 export type { ConversionInputProps } from './ConversionInput';
 
