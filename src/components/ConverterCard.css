@@ -1,0 +1,111 @@
+.converter-card {
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl);
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.converter-card__header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.converter-card__section {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-end;
+}
+
+.converter-card__input-section {
+  margin-bottom: var(--space-md);
+}
+
+.converter-card__input-section .conversion-input {
+  flex: 1;
+}
+
+.converter-card__input-section .unit-selector {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.converter-card__swap-container {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-md) 0;
+  position: relative;
+}
+
+.converter-card__swap-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border) 80%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+.converter-card__swap-container .swap-button {
+  position: relative;
+  z-index: 1;
+  background-color: var(--surface-alt);
+  border-color: var(--border);
+}
+
+.converter-card__output-section {
+  margin-top: var(--space-md);
+}
+
+.converter-card__output-section .conversion-result {
+  flex: 1;
+}
+
+.converter-card__output-section .unit-selector {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .converter-card {
+    padding: var(--space-lg);
+    margin: var(--space-md);
+  }
+
+  .converter-card__section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-sm);
+  }
+
+  .converter-card__input-section .unit-selector,
+  .converter-card__output-section .unit-selector {
+    width: 100%;
+  }
+
+  .converter-card__swap-container {
+    margin: var(--space-sm) 0;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .converter-card {
+    transition-duration: 0.01ms;
+  }
+}
